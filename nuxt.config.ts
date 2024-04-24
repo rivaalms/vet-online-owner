@@ -8,6 +8,14 @@ export default defineNuxtConfig({
       port: 3080
    },
 
+   ssr: false,
+
+   runtimeConfig: {
+      public: {
+         apiUrl: ''
+      }
+   },
+
    build: {
       transpile: ['vuetify']
    },
