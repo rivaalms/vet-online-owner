@@ -34,6 +34,7 @@ export const useAuthStore = defineStore('vet-online-owner-auth', {
          await $logout()
             .then(() => {
                this.$reset()
+               useAppStore().notify('Logout berhasil', 'info')
             })
       }
    }
