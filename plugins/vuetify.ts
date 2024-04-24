@@ -15,6 +15,18 @@ export default defineNuxtPlugin(({ vueApp }) => {
                }
             }
          }
+      },
+      defaults: {
+         VTextField: {
+            color: 'primary',
+            density: 'comfortable',
+            hideDetails: 'auto'
+         },
+         VBtn: {
+            color: 'primary',
+            class: 'text-capitalize',
+            variant: 'flat'
+         }
       }
    })
 
