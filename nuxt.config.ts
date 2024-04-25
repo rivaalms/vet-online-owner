@@ -35,6 +35,13 @@ export default defineNuxtConfig({
       'dayjs-nuxt'
    ],
 
+   dayjs: {
+      locales: ['id'],
+      plugins: ['relativeTime', 'calendar', 'timezone', 'objectSupport'],
+      defaultLocale: 'id',
+      defaultTimezone: 'Asia/Jakarta'
+   },
+
    vite: {
       vue: {
          template: {

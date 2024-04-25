@@ -35,7 +35,7 @@
          </v-col>
 
          <template v-if="pending">
-            <v-col v-if="pets.length == 0" cols="12" v-for="n in 3">
+            <v-col v-if="pets.length == 0" cols="6" v-for="n in 3">
                <v-card>
                   <v-card-item>
                      <v-skeleton-loader
@@ -53,19 +53,18 @@
          <template v-if="pets.length > 0">
             <v-col
                v-for="item in pets"
-               cols="12"
+               cols="6"
             >
                <v-card
-                  @click.stop="void"
+                  :to="`/pets/${item.id}`"
                >
                   <v-img
                      src="/img/dummy-pet.jpg"
-                     height="200"
                      cover
                   ></v-img>
                   <v-card-item>
-                     <v-card-title>{{ item.name }}</v-card-title>
-                     <v-card-subtitle>Hewan Peliharaan</v-card-subtitle>
+                     <v-card-title class="text-subtitle-1">{{ item.name }}</v-card-title>
+                     <v-card-subtitle class="text-subtitle-2">Hewan Peliharaan</v-card-subtitle>
                   </v-card-item>
                </v-card>
             </v-col>
