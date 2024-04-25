@@ -26,7 +26,8 @@ export default defineNuxtPlugin(({ vueApp }) => {
          VTextField: {
             color: 'primary',
             density: 'comfortable',
-            hideDetails: 'auto'
+            hideDetails: 'auto',
+            variant: 'outlined'
          },
          VBtn: {
             color: 'primary',

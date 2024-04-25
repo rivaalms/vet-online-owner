@@ -5,6 +5,11 @@ declare namespace API {
             email: string
             password: string
          }
+
+         type Pet = {
+            name: string
+            pet_owner_id: number
+         }
       }
    }
 }
