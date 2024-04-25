@@ -6,9 +6,9 @@ export const useNavigationMenu = () => {
          to: '/'
       },
       {
-         title: 'Konsultasi Baru',
-         icon: 'mdi-plus',
-         to: '/consultation'
+         title: 'Hewan Peliharaan',
+         icon: 'mdi-paw',
+         to: '/pets'
       },
       {
          title: 'Pengguna',

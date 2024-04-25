@@ -1,2 +1,3 @@
 export { $api } from './api/index'
-export { login } from './api/auth'
+export { login, logout } from './api/auth'
+export { getPets } from './api/pets'

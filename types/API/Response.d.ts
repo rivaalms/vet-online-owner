@@ -10,6 +10,7 @@ declare namespace API {
       data: T
       first_page_url: string
       from: number
+      last_page: number
       last_page_url: string
       links: Array<DataTableLink>
       next_page_url: string | null
