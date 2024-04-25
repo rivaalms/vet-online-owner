@@ -1,11 +1,25 @@
 import { defineStore } from 'pinia'
 
+type State = {
+   snackbar: {
+      show: boolean
+      text: string
+      color: string
+   }
+   actionDrawer: {
+      show: boolean
+   }
+}
+
 export const useAppStore = defineStore('vet-online-owner-app', {
    state: () => ({
       snackbar: {
          show: false,
          text: '',
          color: ''
+      },
+      actionDrawer: {
+         show: false
       }
    }),
 

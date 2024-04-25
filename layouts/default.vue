@@ -1,9 +1,10 @@
 <template>
-   <v-app-bar scroll-behavior="hide" scroll-threshold="256" title="Vet Online"></v-app-bar>
+   <v-app-bar title="Vet Online"></v-app-bar>
 
    <v-main>
       <slot/>
    </v-main>
 
+   <lazy-app-mobile-action-drawer></lazy-app-mobile-action-drawer>
    <app-mobile-navigation></app-mobile-navigation>
 </template>

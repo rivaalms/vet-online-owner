@@ -2,6 +2,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import colors from 'vuetify/util/colors'
 import { createVuetify } from 'vuetify'
+import {
+   VFab,
+} from 'vuetify/labs/VFab'
 
 export default defineNuxtPlugin(({ vueApp }) => {
    const vuetify = createVuetify({
@@ -15,6 +18,9 @@ export default defineNuxtPlugin(({ vueApp }) => {
                }
             }
          }
+      },
+      components: {
+         VFab,
       },
       defaults: {
          VTextField: {
