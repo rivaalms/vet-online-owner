@@ -5,60 +5,86 @@
             Hewan Peliharaan
          </h1>
       </div>
-      <v-data-iterator
-         :items="pets"
-         :page="query.page"
-         :items-per-page="query.per_page"
-      >
-         <template #header>
-            <div class="mb-4 d-flex gap-4">
+
+      <v-row>
+         <v-col cols="12">
+            <div class="d-flex justify-betweeen gap-4">
                <v-text-field
                   v-model="query.search"
-                  density="comfortable"
-                  placeholder="Search"
+                  placeholder="Cari"
                   prepend-inner-icon="mdi-magnify"
                   variant="outlined"
-                  hide-details
+                  density="comfortable"
+                  clearable
                ></v-text-field>
 
                <v-btn
                   icon="mdi-chevron-left"
                   variant="text"
                   :disabled="query.page == 1"
+                  @click.stop="prevPage"
                ></v-btn>
+
                <v-btn
                   icon="mdi-chevron-right"
                   variant="text"
-                  :disabled="query.page == lastPage"
+                  :disabled="query.page == dataInfo.last_page"
+                  @click.stop="nextPage"
                ></v-btn>
             </div>
-         </template>
+         </v-col>
 
-         <v-row dense>
-            <v-col cols="12" v-for="item in pets">
+         <template v-if="pending">
+            <v-col v-if="pets.length == 0" cols="12" v-for="n in 3">
                <v-card>
                   <v-card-item>
-                     <div class="d-flex gap-4 align-center">
-                        <v-avatar
-                           color="primary"
-                        >
-                           J
-                        </v-avatar>
-
-                        <div class="">
-                           <p class="text-subtitle-1">
-                              {{ item.name }}
-                           </p>
-                           <p class="text-subtitle-2 text-grey">
-                              Hewan Peliharaan
-                           </p>
-                        </div>
-                     </div>
+                     <v-skeleton-loader
+                        type="image, list-item-two-line"
+                     ></v-skeleton-loader>
                   </v-card-item>
                </v-card>
             </v-col>
-         </v-row>
-      </v-data-iterator>
+
+            <v-col v-else cols="12">
+               <v-progress-linear indeterminate></v-progress-linear>
+            </v-col>
+         </template>
+
+         <template v-if="pets.length > 0">
+            <v-col
+               v-for="item in pets"
+               cols="12"
+            >
+               <v-card
+                  @click.stop="void"
+               >
+                  <v-img
+                     src="/img/dummy-pet.jpg"
+                     height="200"
+                     cover
+                  ></v-img>
+                  <v-card-item>
+                     <v-card-title>{{ item.name }}</v-card-title>
+                     <v-card-subtitle>Hewan Peliharaan</v-card-subtitle>
+                  </v-card-item>
+               </v-card>
+            </v-col>
+
+            <v-col cols="12">
+               <p class="text-caption text-grey">
+                  {{ `${dataInfo.from} - ${dataInfo.to} dari ${dataInfo.total} data` }}
+               </p>
+            </v-col>
+         </template>
+
+         <template v-else>
+            <v-col cols="12">
+               <p class="text-center">
+                  Tidak ada data tersedia.
+               </p>
+            </v-col>
+         </template>
+      </v-row>
    </v-container>
 </template>
 
@@ -66,20 +92,48 @@
 const query = ref<API.Request.Query.Pet>({
    search: '',
    page: 1,
-   per_page: 10
+   per_page: 5
 })
 
-const currentDataCount = ref<number>(0)
-const total = ref<number>(0)
-const lastPage = ref<number>(0)
+const dataInfo = ref({
+   last_page: 0,
+   total: 0,
+   from: 0,
+   to: 0
+})
 
 const { data: pets, pending, refresh } = await useLazyAsyncData('get-pets', () => getPets(query.value), {
    transform: (resp) => {
-      currentDataCount.value = resp.to
-      total.value = resp.total
-      lastPage.value = resp.last_page
+      const { last_page, total, to, from } = resp
+      dataInfo.value.last_page = last_page
+      dataInfo.value.total = total
+      dataInfo.value.to = to
+      dataInfo.value.from = from
       return resp.data
    },
-   default: () => []
+   default: () => [] as Model.Pet[]
+})
+
+const nextPage = async () => {
+   if (query.value.page == dataInfo.value.last_page) return
+   (query.value.page as number)++
+   await refresh()
+}
+
+const prevPage = async () => {
+   if (query.value.page == 1) return
+   (query.value.page as number)--
+   await refresh()
+}
+
+const timeoutContainer = ref<any>(null)
+
+watch(() => query.value.search, async () => {
+   if (timeoutContainer.value) {
+      clearTimeout(timeoutContainer.value)
+   }
+
+   pending.value = true
+   timeoutContainer.value = setTimeout(refresh, 1000)
 })
 </script>
