@@ -106,7 +106,7 @@ const menuItems = computed(() => [
    {
       title: 'Sunting',
       icon: 'mdi-pencil',
-      onclick: () => navigateTo(`/pets/${pet.value.id}/edit`)
+      onclick: () => useAppStore().showDialog('update-pet', 'Sunting Hewan Peliharaan', pet.value, refresh)
    },
    {
       title: 'Hapus',

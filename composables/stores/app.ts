@@ -68,7 +68,7 @@ export const useAppStore = defineStore('vet-online-owner-app', {
             this.dialog.callback = undefined
             this.dialog.id = null
             this.dialog.title = ''
-         }, 500)
+         }, 100)
       }
    }
 })
