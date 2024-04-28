@@ -21,8 +21,36 @@
                cover
             ></v-img>
             <v-card-item>
-               <v-card-title>{{ pet.name }}</v-card-title>
-               <v-card-subtitle>Anjing</v-card-subtitle>
+               <div class="d-flex align-center justify-space-between">
+                  <div class="">
+                     <v-card-title>{{ pet.name }}</v-card-title>
+                     <v-card-subtitle>Anjing</v-card-subtitle>
+                  </div>
+
+                  <v-menu>
+                     <template #activator="{ props }">
+                        <v-icon
+                           v-bind="props"
+                        >
+                           mdi-dots-vertical
+                        </v-icon>
+                     </template>
+
+                     <v-list>
+                        <v-list-item
+                           v-for="item in menuItems"
+                           @click.stop="item.onclick"
+                        >
+                           <template #prepend>
+                              <v-icon>{{ item.icon }}</v-icon>
+                           </template>
+                           <v-list-item-title>
+                              {{ item.title }}
+                           </v-list-item-title>
+                        </v-list-item>
+                     </v-list>
+                  </v-menu>
+               </div>
             </v-card-item>
 
             <v-card-text>
@@ -73,4 +101,21 @@ const age = computed(() => {
 
    return `${year} tahun ${month} bulan ${day} hari`
 })
+
+const menuItems = computed(() => [
+   {
+      title: 'Sunting',
+      icon: 'mdi-pencil',
+      onclick: () => navigateTo(`/pets/${pet.value.id}/edit`)
+   },
+   {
+      title: 'Hapus',
+      icon: 'mdi-delete',
+      onclick: () => attemptDelete()
+   }
+])
+
+const attemptDelete = async () => {
+   useAppStore().showDialog('delete-pet', 'Hapus Hewan Peliharaan', pet.value, () => navigateTo('/pets'))
+}
 </script>

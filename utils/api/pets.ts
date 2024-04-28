@@ -14,9 +14,24 @@ export async function showPet(id: number|string) {
 }
 
 export async function createPet(payload: API.Request.Form.Pet) {
-   const response = await $api <API.Response<API.DataTable<Model.Pet>>> (`/pet`, {
+   const response = await $api <API.Response<Model.Pet>> (`/pet`, {
       method: 'post',
       body: payload
+   })
+   return response.message!
+}
+
+export async function updatePet(id: number|string, payload: API.Request.Form.Pet) {
+   const response = await $api <API.Response<Model.Pet>> (`/pet/${id}`, {
+      method: 'put',
+      body: payload
+   })
+   return response.message!
+}
+
+export async function deletePet(id: number|string) {
+   const response = await $api <API.Response<boolean>> (`/pet/${id}`, {
+      method: 'delete',
    })
    return response.message!
 }
