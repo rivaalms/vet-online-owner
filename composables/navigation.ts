@@ -1,9 +1,20 @@
-export const useNavigationMenu = () => {
+type Navigation = {
+   title: string
+   icon: string
+   to: string
+}
+
+export const useNavigationMenu = (): Navigation[] => {
    return [
       {
          title: 'Beranda',
          icon: 'mdi-home',
          to: '/'
+      },
+      {
+         title: 'Riwayat Konsultasi',
+         icon: 'mdi-clipboard-pulse',
+         to: ''
       },
       {
          title: 'Hewan Peliharaan',

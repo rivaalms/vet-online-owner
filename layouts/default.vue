@@ -1,5 +1,5 @@
 <template>
-   <v-app-bar title="Vet Online"></v-app-bar>
+   <app-mobile-header></app-mobile-header>
 
    <v-main>
       <slot/>

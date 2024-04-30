@@ -6,14 +6,19 @@
       :elevation="24"
       grow
    >
-      <v-btn
-         v-for="(item, index) in menu"
-         :key="index"
-         :to="item.to"
-         exact
+      <template
+         v-for="item in menu"
       >
-         <v-icon>{{ item.icon }}</v-icon>
-      </v-btn>
+         <v-btn
+            variant="plain"
+            :to="item.to"
+            exact
+            :ripple="false"
+            style="opacity:1;"
+         >
+            <v-icon>{{ item.icon }}</v-icon>
+         </v-btn>
+      </template>
    </v-bottom-navigation>
 </template>
 
