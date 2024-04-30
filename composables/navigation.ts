@@ -14,7 +14,7 @@ export const useNavigationMenu = (): Navigation[] => {
       {
          title: 'Riwayat Konsultasi',
          icon: 'mdi-clipboard-pulse',
-         to: ''
+         to: '/consultations'
       },
       {
          title: 'Hewan Peliharaan',
