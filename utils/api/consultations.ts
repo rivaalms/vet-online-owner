@@ -1,6 +1,7 @@
 export async function getConsultations(query: API.Request.Query.Consultation) {
    const response = await $api <API.Response<API.DataTable<Model.Consultation[]>>> (`/consultations`, {
-      method: 'get'
+      method: 'get',
+      query
    })
 
    return response.data
