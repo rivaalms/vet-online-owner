@@ -19,3 +19,10 @@ export async function logout() : Promise <string> {
 
    return response.message!
 }
+
+export async function me() : Promise <Model.User> {
+   const response = await $api <API.Response <Model.User>> (`/me`, {
+      method: 'get'
+   })
+   return response.data
+}

@@ -1,5 +1,5 @@
 export { $api } from './api/index'
-export { login, logout } from './api/auth'
+export { login, logout, me } from './api/auth'
 export {
    getPets,
    showPet,
