@@ -7,3 +7,6 @@ export {
    updatePet,
    deletePet
 } from './api/pets'
+export {
+   getConsultations
+} from './api/consultations'

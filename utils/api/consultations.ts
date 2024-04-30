@@ -1,0 +1,24 @@
+export async function getConsultations(query: API.Request.Query.Consultation) {
+   const response = await $api <API.Response<API.DataTable<Model.Consultation[]>>> (`/consultations`, {
+      method: 'get'
+   })
+
+   return response.data
+}
+
+export async function showConsultation(id: number|string) {
+   const response = await $api <API.Response<Model.Consultation>> (`/consultation/${id}`, {
+      method: 'get'
+   })
+
+   return response.data
+}
+
+export async function createConsultation(payload: API.Request.Form.Consultation) {
+   const response = await $api <API.Response<Model.Consultation>> (`/consultation`, {
+      method: 'post',
+      body: payload
+   })
+
+   return response.message!
+}
