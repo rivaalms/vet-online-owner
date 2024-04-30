@@ -14,3 +14,8 @@ export function $statusChipColor(status: string) {
          return 'grey'
    }
 }
+
+export function $date(date: string) {
+   const dayjs = useDayjs()
+   return dayjs(date).format('DD MMM YYYY | HH:mm')
+}

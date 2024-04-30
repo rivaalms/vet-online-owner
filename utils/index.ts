@@ -8,5 +8,10 @@ export {
    deletePet
 } from './api/pets'
 export {
-   getConsultations
+   getConsultations,
+   showConsultation,
+   createConsultation
 } from './api/consultations'
+export {
+   getExaminations
+} from './api/examinations'
