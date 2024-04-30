@@ -35,7 +35,7 @@
          </v-col>
 
          <template v-if="pending">
-            <v-col v-if="pets.length == 0" cols="6" v-for="n in 3">
+            <v-col v-if="pets.length == 0" cols="6" v-for="n in 6">
                <v-card>
                   <v-card-item>
                      <v-skeleton-loader
@@ -47,6 +47,14 @@
 
             <v-col v-else cols="12">
                <v-progress-linear indeterminate></v-progress-linear>
+            </v-col>
+         </template>
+
+         <template v-if="!pending && pets.length < 1">
+            <v-col cols="12">
+               <p class="text-center">
+                  Tidak ada data tersedia.
+               </p>
             </v-col>
          </template>
 
@@ -75,14 +83,6 @@
                </p>
             </v-col>
          </template>
-
-         <template v-else>
-            <v-col cols="12">
-               <p class="text-center">
-                  Tidak ada data tersedia.
-               </p>
-            </v-col>
-         </template>
       </v-row>
    </v-container>
 </template>
@@ -91,7 +91,7 @@
 const query = ref<API.Request.Query.Pet>({
    search: '',
    page: 1,
-   per_page: 5
+   per_page: 6
 })
 
 const dataInfo = ref({
