@@ -7,6 +7,7 @@ declare namespace Model {
       created_at: string
       updated_at: string
       examination?: Model.Examination
+      ref?: Model.Prescription | Model.FuturePhysicalVisit
    }
 
    type Prescription = {
@@ -19,7 +20,7 @@ declare namespace Model {
       note: string | null
       created_at: string
       updated_at: string
-      follow_up: FollowUp
+      follow_up?: FollowUp
    }
 
    type FuturePhysicalVisit = {
@@ -28,7 +29,7 @@ declare namespace Model {
       veterinarian_id: number
       created_at: string
       updated_at: string
-      follow_up: FollowUp
+      follow_up?: FollowUp
       veterinarian?: Model.Veterinarian
    }
 }

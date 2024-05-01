@@ -7,5 +7,6 @@ declare namespace Model {
       created_at: string
       updated_at: string
       consultation?: Model.Consultation
+      follow_ups?: Model.FollowUp[]
    }
 }

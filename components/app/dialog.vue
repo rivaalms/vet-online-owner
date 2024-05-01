@@ -32,6 +32,7 @@ const { dialog, clearDialog } = useAppStore()
 const componentMap : Wildcard = {
    'delete-pet': () => import('@/components/dialogs/delete-pet.vue'),
    'update-pet': () => import('@/components/dialogs/update-pet.vue'),
+   'follow-up': () => import('@/components/dialogs/follow-up.vue')
 }
 
 const dialogBody = ref<any>(null)
