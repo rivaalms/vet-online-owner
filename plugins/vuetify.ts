@@ -33,6 +33,18 @@ export default defineNuxtPlugin(({ vueApp }) => {
             color: 'primary',
             class: 'text-capitalize',
             variant: 'flat'
+         },
+         VCombobox: {
+            variant: 'outlined',
+            hideDetails: 'auto',
+            density: 'comfortable',
+            color: 'primary',
+         },
+         VTextarea: {
+            variant:  'outlined',
+            hideDetails: 'auto',
+            density: 'comfortable',
+            color: 'primary'
          }
       }
    })

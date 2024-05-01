@@ -15,3 +15,6 @@ export {
 export {
    getExaminations
 } from './api/examinations'
+export {
+   getVeterinarians
+} from './api/veterinarians'

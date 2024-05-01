@@ -26,7 +26,8 @@ const { actionDrawer } = useAppStore()
 const actionListItem = ref<any>([
    {
       icon: 'mdi-clipboard-plus',
-      label: 'Konsultasi'
+      label: 'Konsultasi',
+      to: '/consultations/create'
    },
    {
       icon: 'mdi-paw',

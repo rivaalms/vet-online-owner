@@ -7,6 +7,13 @@ declare namespace API {
             per_page: number | string
          }
 
+         type Veterinarian = {
+            search: string | null
+            online: boolean
+            page: number | string
+            per_page: number | string
+         }
+
          type Consultation = {
             search: string | null
             page: number | string
