@@ -23,11 +23,30 @@
 </template>
 
 <script setup lang="ts">
+import { io } from 'socket.io-client'
+
 useHead({
    titleTemplate: (title) => title ? `${title} - Vet Online` : 'Vet Online'
 })
 
+const { getUser: user } = useAuthStore()
+const socketUrl = useRuntimeConfig().public.socketServerUrl
 const { snackbar, resetSnackbar } = useAppStore()
+const socket = io(socketUrl)
+
+onBeforeMount(() => {
+   socket.on('connect', () => {
+      console.info('Connected to socket server')
+      socket.emit('ping', { id: user?.id, name: user?.name })
+   })
+
+   window.onbeforeunload = async () => {
+      await new Promise((resolve) => {
+         socket.emit('unregister', { id: user?.id, name: user?.name })
+         resolve(true)
+      })
+   }
+})
 
 watch(() => snackbar.show, (val) => {
    if (!val) {
