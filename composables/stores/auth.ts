@@ -27,14 +27,17 @@ export const useAuthStore = defineStore('vet-online-owner-auth', {
                this.user = resp.user
                this.token = resp.token
                useAppStore().notify('Login berhasil', 'success')
+               useSocketStore().register()
             })
       },
 
       async logout() {
+         useSocketStore().unregister()
          await $logout()
             .then(() => {
                this.$reset()
                useAppStore().notify('Logout berhasil', 'info')
+               useSocketStore().socket.disconnect()
             })
       }
    }
