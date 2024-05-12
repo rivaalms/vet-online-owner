@@ -21,5 +21,5 @@ export async function createConsultation(payload: API.Request.Form.Consultation)
       body: payload
    })
 
-   return response.message!
+   return response
 }

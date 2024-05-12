@@ -63,6 +63,7 @@
 
 <script setup lang="ts">
 const store = useAppStore()
+const socketStore = useSocketStore()
 
 const { data: veterinarians, pending: veterinarianLoading } = await useLazyAsyncData('fetch-vets', () => getVeterinarians({ page: 1, per_page: 1000, search: '', online: true }), {
    transform: (resp) => {
@@ -105,8 +106,14 @@ const submit = async () => {
    loading.value = true
    await createConsultation(form.value)
       .then(resp => {
-         store.notify(resp, 'success')
-         navigateTo('/consultations')
+         store.notify(resp.message!, 'success')
+         const consultationStore = useConsultationStore()
+         consultationStore.consultation = resp.data
+         socketStore.sendNotification('new-consultation', {
+            consultation_id: resp.data.id,
+            veterinarian_user_id: resp.data.veterinarian?.user?.id
+         })
+         navigateTo('/consultations/room')
       })
       .finally(() => loading.value = false)
 }

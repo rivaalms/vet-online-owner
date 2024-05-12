@@ -34,14 +34,16 @@ export const useSocketStore = defineStore('vet-online-owner-socket', {
          const { getUser: user } = useAuthStore()
          const credentials = {
             id: user?.id,
-            name: user?.name
+            name: user?.name,
+            type: user?.ref_type
          }
 
          this.socket.emit('ping', credentials)
       },
 
-      testNotif() {
-         this.socket.emit('notification', { id: 'test' })
+      sendNotification(id: string, data: Wildcard) {
+         const payload = { id, data }
+         this.socket.emit('notification', payload)
       }
    }
 })
