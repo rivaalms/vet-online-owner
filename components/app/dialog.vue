@@ -1,6 +1,7 @@
 <template>
    <v-dialog
       v-model="dialog.show"
+      :persistent="isDialogPersistent"
    >
       <v-card>
          <v-card-title class="d-flex justify-space-between gap-4 align-center">
@@ -32,7 +33,8 @@ const { dialog, clearDialog } = useAppStore()
 const componentMap : Wildcard = {
    'delete-pet': () => import('@/components/dialogs/delete-pet.vue'),
    'update-pet': () => import('@/components/dialogs/update-pet.vue'),
-   'follow-up': () => import('@/components/dialogs/follow-up.vue')
+   'follow-up': () => import('@/components/dialogs/follow-up.vue'),
+   'pending-consultation': () => import('@/components/dialogs/pending-consultation.vue')
 }
 
 const dialogBody = ref<any>(null)
@@ -42,5 +44,9 @@ watch(() => dialog.show, async (val) => {
       const component = componentMap[dialog.id]
       if (component) dialogBody.value = (await component()).default
    }
+})
+
+const isDialogPersistent = computed(() => {
+   return !!dialog.id && ['pending-consultation'].includes(dialog.id)
 })
 </script>
