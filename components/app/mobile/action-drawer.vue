@@ -1,8 +1,9 @@
 <template>
    <v-fab
       icon="mdi-plus"
-      app
       location="bottom"
+      app
+      absolute
       @click.stop="actionDrawer.show = true"
    ></v-fab>
 
