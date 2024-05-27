@@ -10,7 +10,8 @@ export {
 export {
    getConsultations,
    showConsultation,
-   createConsultation
+   createConsultation,
+   getConsultationChats
 } from './api/consultations'
 export {
    getExaminations

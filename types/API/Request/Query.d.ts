@@ -16,6 +16,7 @@ declare namespace API {
 
          type Consultation = {
             search: string | null
+            status?: string
             page: number | string
             per_page: number | string
          }

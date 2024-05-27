@@ -23,3 +23,10 @@ export async function createConsultation(payload: API.Request.Form.Consultation)
 
    return response
 }
+
+export async function getConsultationChats(consultationId: number|string) {
+   const response = await $api <API.Response<any>> (`/consultation-chats/${consultationId}`, {
+      method: 'get'
+   })
+   return response.data
+}

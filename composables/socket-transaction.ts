@@ -1,5 +1,6 @@
 export function useSocketConnection() {
    const { socket, ping, unregister } = useSocketStore()
+   const consultationStore = useConsultationStore()
 
    socket.on('connect', () => {
       console.info('Socket connected')
@@ -19,6 +20,16 @@ export function useSocketConnection() {
       switch (message.id) {
          case 'consultation-rejected':
             onConsultationRejected(message)
+            break
+         default:
+            break
+      }
+   })
+
+   socket.on('chat', (message) => {
+      switch (message.id) {
+         case 'text':
+            consultationStore.chats.push(message.data)
             break
          default:
             break

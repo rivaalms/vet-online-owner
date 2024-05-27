@@ -44,6 +44,11 @@ export const useSocketStore = defineStore('vet-online-owner-socket', {
       sendNotification(id: string, data: Wildcard) {
          const payload = { id, data }
          this.socket.emit('notification', payload)
+      },
+
+      sendChat(id: string, data: Wildcard) {
+         const payload = { id, data }
+         this.socket.emit('chat', payload)
       }
    }
 })

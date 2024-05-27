@@ -19,3 +19,7 @@ export function $date(date: string) {
    const dayjs = useDayjs()
    return dayjs(date).format('DD MMM YYYY | HH:mm')
 }
+
+export function $jsonify <T> (data: T) {
+   return JSON.parse(JSON.stringify(data)) as T
+}
