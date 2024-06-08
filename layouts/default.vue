@@ -5,7 +5,15 @@
       <slot/>
    </v-main>
 
-   <app-mobile-navigation></app-mobile-navigation>
-   <lazy-app-mobile-action-drawer></lazy-app-mobile-action-drawer>
+   <app-mobile-navigation
+      v-if="!consultationStore.isInConsultation"
+   ></app-mobile-navigation>
+   <lazy-app-mobile-action-drawer
+      v-if="!consultationStore.isInConsultation"
+   ></lazy-app-mobile-action-drawer>
    <lazy-app-dialog></lazy-app-dialog>
 </template>
+
+<script setup lang="ts">
+const consultationStore = useConsultationStore()
+</script>

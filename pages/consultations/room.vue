@@ -30,52 +30,58 @@
       </div>
    </template>
 
-   <v-container
-      class="fill-height my-16"
-      id="chat-container"
+   <v-sheet
+      class="pa-2 d-flex flex-column ga-4 consultation-chat-area"
    >
-      <v-row
-         class="fill-height"
-         align="end"
-      >
-         <v-col class="d-flex flex-column gap-4">
-            <v-card
-               v-for="(chat, index) in consultationStore.chats"
-               :id="`chat-${index}`"
-               variant="flat"
-               :color="consultationStore.consultation?.pet?.owner?.user?.id == chat.from ? 'primary' : 'grey-lighten-3'"
-               class="d-flex flex-row align-center w-50 rounded-pill"
-               :class="{
-                  'align-self-end': chat.from === consultationStore.consultation?.pet?.owner?.user?.id,
-                  [consultationStore.consultation?.pet?.owner?.user?.id == chat.from ? 'rounded-be-0' : 'rounded-bs-0']: true
-               }"
-            >
-               <v-card-text>
-                  {{ chat.message }}
-               </v-card-text>
-            </v-card>
-         </v-col>
-      </v-row>
-   </v-container>
-
-   <v-footer fixed app>
-      <consultation-text-box></consultation-text-box>
-   </v-footer>
+      <div class="flex-grow-1 overflow-y-auto px-2" ref="overflowContainer">
+         <div id="message-container" ref="msgContainer" class="d-flex flex-column ga-2">
+            <template v-for="(chat, index) in consultationStore.chats">
+               <div>
+                  <v-card
+                     :id="`chat-${index}`"
+                     variant="flat"
+                     :color="consultationStore.consultation?.pet?.owner?.user?.id == chat.from ? 'primary' : 'grey-lighten-3'"
+                     class="d-flex flex-row align-center w-50 rounded-pill"
+                     :class="{
+                        'align-self-end': chat.from == consultationStore.consultation?.pet?.owner?.user?.id,
+                        [consultationStore.consultation?.pet?.owner?.user?.id == chat.from ? 'rounded-be-0 float-right' : 'rounded-bs-0 float-left']: true
+                     }"
+                  >
+                     <v-card-text>
+                        {{ chat.message }}
+                     </v-card-text>
+                  </v-card>
+               </div>
+            </template>
+         </div>
+      </div>
+      <div class="">
+         <consultation-text-box></consultation-text-box>
+      </div>
+   </v-sheet>
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-   layout: 'consultation-room'
-})
 const consultationStore = useConsultationStore()
+const msgContainer = ref<any>()
+const overflowContainer = ref<any>()
 
-watch(() => consultationStore.chats.length, async (val) => {
-   await new Promise((resolve) => setTimeout(resolve, 200))
-      .then(() => {
-         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-      })
+watch(() => consultationStore.chats, async (val) => {
+   await scrollChatContainerToBottom()
 }, {
-   immediate: true
+   deep: true
+})
+
+async function scrollChatContainerToBottom() {
+   await nextTick(() => {
+      overflowContainer.value.scrollTo({
+         top: msgContainer.value.scrollHeight,
+      })
+   })
+}
+
+onMounted(async () => {
+   await scrollChatContainerToBottom()
 })
 
 onBeforeMount(async () => {
@@ -83,9 +89,14 @@ onBeforeMount(async () => {
       await getConsultationChats(consultationStore.consultation?.id as number)
          .then((resp) => {
             const { data } = resp
-            console.log(data)
-            // consultationStore.chats =
+            consultationStore.chats = data
          })
    }
 })
 </script>
+
+<style scoped>
+.consultation-chat-area {
+   height: calc(100dvh - 64px);
+}
+</style>
