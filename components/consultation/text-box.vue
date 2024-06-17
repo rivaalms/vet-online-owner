@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+const dayjs = useDayjs()
 const consultationStore = useConsultationStore()
 const socketStore = useSocketStore()
 
@@ -31,6 +32,7 @@ async function sendMessage() {
       to: consultationStore.consultation?.veterinarian?.user?.id as number,
       from: consultationStore.consultation?.pet?.owner?.user?.id as number,
       message: message.value as string,
+      time: dayjs().format()
    }
 
    await new Promise(resolve => {

@@ -3,12 +3,7 @@ import { defineStore } from "pinia"
 type State = {
    // isWaitingVet: boolean
    consultation: Model.Consultation | null
-   chats: {
-      consultation_id: number
-      from: number
-      to: number
-      message: string | null
-   }[]
+   chats: Model.Consultation.ChatData[]
 }
 
 export const useConsultationStore = defineStore('vet-online-owner-consultation', {

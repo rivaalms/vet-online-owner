@@ -25,7 +25,7 @@ export async function createConsultation(payload: API.Request.Form.Consultation)
 }
 
 export async function getConsultationChats(consultationId: number|string) {
-   const response = await $api <API.Response<any>> (`consultation/${consultationId}/chats`, {
+   const response = await $api <API.Response<Model.Consultation.Chat>> (`consultation/${consultationId}/chats`, {
       method: 'get'
    })
    return response.data

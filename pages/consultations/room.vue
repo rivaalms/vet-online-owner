@@ -85,6 +85,7 @@ onMounted(async () => {
 })
 
 onBeforeMount(async () => {
+   consultationStore.chats = []
    if (consultationStore.isInConsultation) {
       await getConsultationChats(consultationStore.consultation?.id as number)
          .then((resp) => {

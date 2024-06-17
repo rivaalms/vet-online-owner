@@ -13,4 +13,20 @@ declare namespace Model {
       veterinarian?: Model.Veterinarian
       pet?: Model.Pet
    }
+
+   namespace Consultation {
+      type Chat = {
+         id: number
+         consultation_id: number
+         data: ChatData[]
+      }
+
+      type ChatData = {
+         consultation_id?: number
+         to: number
+         from: number
+         message: string
+         time: string
+      }
+   }
 }
